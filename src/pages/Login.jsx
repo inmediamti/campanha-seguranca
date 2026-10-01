@@ -4,13 +4,50 @@ import { ShieldCheck, Eye, EyeOff, Loader2, Clock, Lock } from 'lucide-react'
 import { registrarAcesso } from '../lib/track.js'
 import Brasao from '../components/Brasao.jsx'
 
-function Contador({ segundosIniciais = 20 * 60 }) {
-  const [restante, setRestante] = useState(segundosIniciais)
+const DURACAO_SEGUNDOS = 20 * 60
+const STORAGE_KEY = 'inm-contador-expira'
+
+function gerarDeadline() {
+  const ts = Date.now() + DURACAO_SEGUNDOS * 1000
+  try {
+    localStorage.setItem(STORAGE_KEY, String(ts))
+  } catch {
+    // localStorage indisponível (aba anônima): o contador segue sem persistir.
+  }
+  return ts
+}
+
+function deadlineInicial() {
+  try {
+    const salvo = Number(localStorage.getItem(STORAGE_KEY))
+    if (salvo && salvo > Date.now()) return salvo
+  } catch {
+    // ignora leitura bloqueada
+  }
+  return gerarDeadline()
+}
+
+function segundosAte(deadline) {
+  return Math.max(0, Math.round((deadline - Date.now()) / 1000))
+}
+
+function Contador() {
+  const [deadline, setDeadline] = useState(deadlineInicial)
+  const [restante, setRestante] = useState(() => segundosAte(deadline))
 
   useEffect(() => {
-    const id = setInterval(() => setRestante((s) => (s <= 0 ? 0 : s - 1)), 1000)
+    const id = setInterval(() => {
+      const seg = segundosAte(deadline)
+      if (seg <= 0) {
+        const novo = gerarDeadline()
+        setDeadline(novo)
+        setRestante(segundosAte(novo))
+      } else {
+        setRestante(seg)
+      }
+    }, 1000)
     return () => clearInterval(id)
-  }, [])
+  }, [deadline])
 
   const mm = String(Math.floor(restante / 60)).padStart(2, '0')
   const ss = String(restante % 60).padStart(2, '0')
