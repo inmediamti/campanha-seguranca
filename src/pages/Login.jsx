@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ShieldCheck, Eye, EyeOff, Loader2, Clock, Lock } from 'lucide-react'
 import { registrarAcesso } from '../lib/track.js'
 import Brasao from '../components/Brasao.jsx'
+import loginBg from '../assets/login-bg.jpg'
 
 const DURACAO_SEGUNDOS = 20 * 60
 const STORAGE_KEY = 'inm-contador-expira'
@@ -93,11 +94,8 @@ export default function Login() {
 
   return (
     <div
-      className="relative flex min-h-screen flex-col items-center justify-center px-4 py-12"
-      style={{
-        background:
-          'radial-gradient(circle at 18% 78%, #FB8C2E 0%, transparent 45%), radial-gradient(circle at 55% 12%, #DFF3F0 0%, transparent 38%), radial-gradient(circle at 85% 25%, #FCE7A8 0%, transparent 45%), radial-gradient(circle at 70% 72%, #FBB04C 0%, transparent 50%), linear-gradient(135deg, #FDE9B0 0%, #FBA83F 55%, #FB922E 100%)',
-      }}
+      className="relative flex min-h-screen flex-col items-center justify-center bg-cover bg-center bg-no-repeat px-4 py-12"
+      style={{ backgroundImage: `url(${loginBg})` }}
     >
       <main className="w-full max-w-[440px] rounded-[20px] bg-white p-8 shadow-[0_24px_60px_-12px_rgba(120,70,0,0.25)] sm:p-10">
         <div className="mb-6 flex justify-center">
