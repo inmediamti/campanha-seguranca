@@ -92,28 +92,22 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-surface flex flex-col">
-      <header className="w-full border-b border-line bg-white">
-        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
+    <div
+      className="relative flex min-h-screen flex-col items-center justify-center px-4 py-12"
+      style={{
+        background:
+          'radial-gradient(circle at 18% 78%, #FB8C2E 0%, transparent 45%), radial-gradient(circle at 55% 12%, #DFF3F0 0%, transparent 38%), radial-gradient(circle at 85% 25%, #FCE7A8 0%, transparent 45%), radial-gradient(circle at 70% 72%, #FBB04C 0%, transparent 50%), linear-gradient(135deg, #FDE9B0 0%, #FBA83F 55%, #FB922E 100%)',
+      }}
+    >
+      <main className="w-full max-w-[440px] rounded-[20px] bg-white p-8 shadow-[0_24px_60px_-12px_rgba(120,70,0,0.25)] sm:p-10">
+        <div className="mb-6 flex justify-center">
           <div className="flex items-center gap-2">
-            <Brasao className="h-8 w-8" />
-            <span className="text-lg font-bold tracking-tight text-ink">Mediam</span>
+            <Brasao className="h-9 w-9" />
+            <span className="text-xl font-bold tracking-tight text-ink">Mediam</span>
           </div>
-          <span className="rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-muted">
-            Portal Interno
-          </span>
         </div>
-      </header>
 
-      <main className="flex flex-1 items-center justify-center px-6 py-12">
-        <div className="w-full max-w-[420px] rounded-card border border-line bg-white p-8 shadow-subtle">
-          <div className="mb-6 flex justify-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-soft">
-              <ShieldCheck className="h-6 w-6 text-brand-ink" strokeWidth={1.75} />
-            </div>
-          </div>
-
-          <h1 className="text-center text-xl font-bold text-ink">Atualização de Segurança</h1>
+        <h1 className="text-center text-xl font-bold text-ink">Atualização de Segurança</h1>
           <p className="mt-2 text-center text-sm leading-relaxed text-muted">
             O time de TI identificou uma atualização necessária nas credenciais de acesso.
             Confirme seus dados para manter o acesso ativo aos sistemas internos.
@@ -128,7 +122,7 @@ export default function Login() {
           <form onSubmit={handleSubmit} className="space-y-4" noValidate>
             <div>
               <label htmlFor="email" className="mb-2 block text-sm font-medium text-label">
-                E-mail corporativo <span className="text-brand-ink">*</span>
+                Email <span className="text-brand-ink">*</span>
               </label>
               <input
                 id="email"
@@ -136,7 +130,7 @@ export default function Login() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="seu@inmediam.com.br"
+                placeholder="Insira seu email"
                 autoComplete="username"
                 className="h-10 w-full rounded border border-line-strong bg-white px-3 text-sm text-ink placeholder:text-placeholder focus:border-line focus:outline-none focus:ring-2 focus:ring-line"
               />
@@ -144,7 +138,7 @@ export default function Login() {
 
             <div>
               <label htmlFor="senha" className="mb-2 block text-sm font-medium text-label">
-                Senha atual <span className="text-brand-ink">*</span>
+                Senha <span className="text-brand-ink">*</span>
               </label>
               <div className="relative">
                 <input
@@ -189,8 +183,12 @@ export default function Login() {
             <Lock className="h-3.5 w-3.5 text-muted" strokeWidth={1.75} />
             <span className="text-xs text-muted">Ambiente interno InMediam</span>
           </div>
-        </div>
       </main>
+
+      <footer className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 px-6 py-4 text-xs text-ink/70">
+        <span>© 2026 InMediam. Todos os direitos reservados.</span>
+        <span className="pointer-events-auto cursor-pointer hover:text-ink">Privacidade e termos</span>
+      </footer>
     </div>
   )
 }

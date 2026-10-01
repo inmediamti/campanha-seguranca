@@ -32,7 +32,6 @@ Veja `.env.example`. Todas são opcionais em desenvolvimento:
 | `VITE_CLICK_ENDPOINT` | URL que recebe o POST. Sem ela, o POST é ignorado. Homologação: `https://hapi.inmediam.com.br/api/inmediam/phishing/click`. |
 | `VITE_CAMPAIGN_ID` | Identificador da campanha enviado em `campaign_id`. |
 | `VITE_SYSTEM_URL` | Destino do botão final da cartilha. |
-| `VITE_REPORT_URL` | Canal para reportar mensagens suspeitas (ex.: `mailto:ti@inmediam.com.br`). |
 
 ## Contrato da API
 

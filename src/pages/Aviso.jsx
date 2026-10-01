@@ -15,7 +15,6 @@ import {
   Smartphone,
   QrCode,
   Globe,
-  LifeBuoy,
   ShieldCheck,
   ArrowRight,
 } from 'lucide-react'
@@ -24,7 +23,6 @@ import Quiz from '../components/Quiz.jsx'
 import Brasao from '../components/Brasao.jsx'
 
 const SYSTEM_URL = import.meta.env.VITE_SYSTEM_URL || 'https://www.inmediam.com.br'
-const REPORT_URL = import.meta.env.VITE_REPORT_URL || ''
 
 const SINAIS = [
   {
@@ -265,51 +263,18 @@ export default function Aviso() {
 
       <section className="mx-auto max-w-3xl px-6 py-16">
         <Reveal>
-          <div className="rounded-card border border-line bg-white p-8 shadow-subtle">
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-soft">
-              <LifeBuoy className="h-6 w-6 text-brand-ink" strokeWidth={1.75} />
-            </div>
-            <h2 className="text-xl font-bold tracking-tight text-ink">Já cliquei. O que eu faço?</h2>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              Não entre em pânico e não tente esconder o que aconteceu. Avise a equipe de TI o quanto
-              antes. Informar rapidamente uma situação suspeita ajuda a empresa a verificar o
-              ocorrido e tomar as medidas necessárias.
-            </p>
-            <div className="mt-5">
-              {REPORT_URL ? (
-                <a
-                  href={REPORT_URL}
-                  className="inline-flex h-10 items-center gap-2 rounded bg-brand px-4 text-sm font-semibold text-ink transition-colors hover:bg-brand-hover"
-                >
-                  <Mail className="h-4 w-4" strokeWidth={2} />
-                  Falar com a TI
-                </a>
-              ) : (
-                <span className="inline-flex h-10 items-center gap-2 rounded border border-dashed border-line-strong px-4 text-sm font-medium text-placeholder">
-                  <Mail className="h-4 w-4" strokeWidth={1.75} />
-                  Falar com a TI — configure o canal em VITE_REPORT_URL
-                </span>
-              )}
-            </div>
-          </div>
+          <SectionTitle sub="3 perguntas rápidas para fixar o que você aprendeu.">
+            Teste seu conhecimento
+          </SectionTitle>
+        </Reveal>
+        <Reveal>
+          <Quiz />
         </Reveal>
       </section>
 
-      <section className="border-y border-line bg-surface">
-        <div className="mx-auto max-w-3xl px-6 py-16">
+      <section className="border-y border-line bg-surface px-6 py-16 text-center">
+        <div className="mx-auto max-w-3xl">
           <Reveal>
-            <SectionTitle sub="3 perguntas rápidas para fixar o que você aprendeu.">
-              Teste seu conhecimento
-            </SectionTitle>
-          </Reveal>
-          <Reveal>
-            <Quiz />
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-3xl px-6 py-16 text-center">
-        <Reveal>
           <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-brand-soft">
             <ShieldCheck className="h-7 w-7 text-brand-ink" strokeWidth={1.75} />
           </div>
@@ -331,7 +296,8 @@ export default function Aviso() {
             Ir para o sistema InMediam
             <ArrowRight className="h-4 w-4" strokeWidth={2} />
           </a>
-        </Reveal>
+          </Reveal>
+        </div>
       </section>
 
       <footer className="border-t border-line bg-white">
