@@ -21,6 +21,7 @@ import {
 } from 'lucide-react'
 import Reveal from '../components/Reveal.jsx'
 import Quiz from '../components/Quiz.jsx'
+import Brasao from '../components/Brasao.jsx'
 
 const SYSTEM_URL = import.meta.env.VITE_SYSTEM_URL || 'https://www.inmediam.com.br'
 const REPORT_URL = import.meta.env.VITE_REPORT_URL || ''
@@ -109,7 +110,10 @@ export default function Aviso() {
     <div className="min-h-screen bg-white">
       <header className="sticky top-0 z-10 border-b border-line bg-white/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
-          <span className="text-lg font-bold tracking-tight text-ink">InMediam</span>
+          <div className="flex items-center gap-2">
+            <Brasao className="h-8 w-8" />
+            <span className="text-lg font-bold tracking-tight text-ink">Mediam</span>
+          </div>
           <span className="rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-muted">
             Programa de Segurança Corporativa
           </span>
@@ -133,19 +137,29 @@ export default function Aviso() {
                     'radial-gradient(ellipse at center, rgba(250,197,21,0.22), transparent 70%)',
                 }}
               />
-              Esta foi uma{' '}
-              <span className="bg-brand/60 box-decoration-clone px-1">simulação</span> de segurança
+              Desta vez foi um teste.{' '}
+              <span className="bg-brand/60 box-decoration-clone px-1">
+                Da próxima, pode ser de verdade.
+              </span>
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted">
-              Você acabou de participar de uma simulação realizada pela equipe de TI. A mensagem e a
-              página que você acessou faziam parte de um teste educativo. Nenhuma senha deve ser
-              informada em situações como essa.
+              Esta página foi criada pela própria equipe de TI, apenas para treinamento. Ninguém
+              está sendo avaliado ou punido, e nenhum dado seu foi comprometido.
             </p>
-            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted">
-              O objetivo não é apontar erros, mas mostrar como mensagens aparentemente legítimas
-              podem ser usadas para tentar obter informações confidenciais. Você participou de um
-              treinamento — agora sabe quais sinais observar na próxima vez.
-            </p>
+            <div className="mx-auto mt-6 max-w-xl rounded-card border-l-4 border-brand-hover bg-brand-soft px-5 py-4 text-left">
+              <p className="text-sm font-semibold leading-relaxed text-ink">
+                Fique atento: criminosos — e até outras empresas — podem montar uma página idêntica
+                a esta para roubar suas senhas e seus dados.
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                Hoje foi só um exercício. Na próxima vez pode ser de verdade, por isso{' '}
+                <strong className="font-semibold text-ink">
+                  nunca informe sua senha ou seus dados de acesso em uma tela aberta a partir de um
+                  link
+                </strong>
+                , por mais real e urgente que a mensagem pareça.
+              </p>
+            </div>
           </Reveal>
         </div>
       </section>

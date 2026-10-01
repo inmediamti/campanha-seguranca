@@ -16,7 +16,7 @@ cp .env.example .env      # ajuste as variáveis
 npm run dev
 ```
 
-Abre em `http://localhost:5173`. O fluxo: preencher o form em `/` → ao confirmar, dispara o POST para `VITE_CLICK_ENDPOINT` e redireciona para `/aviso`.
+Abre em `http://localhost:5180`. O fluxo: preencher o form em `/` → ao confirmar, dispara o POST para `VITE_CLICK_ENDPOINT` e redireciona para `/aviso`.
 
 Outros comandos:
 
