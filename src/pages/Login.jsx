@@ -1,21 +1,31 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ShieldCheck, Eye, EyeOff, Loader2, Clock } from 'lucide-react'
 import { registrarAcesso } from '../lib/track.js'
 
 export default function Login() {
   const navigate = useNavigate()
-  const [email, setEmail] = useState('')
+  const [searchParams] = useSearchParams()
+  const [email, setEmail] = useState(searchParams.get('email') || '')
   const [senha, setSenha] = useState('')
   const [verSenha, setVerSenha] = useState(false)
   const [enviando, setEnviando] = useState(false)
+  const cliqueRegistrado = useRef(false)
+
+  useEffect(() => {
+    const emailDoLink = searchParams.get('email')
+    if (emailDoLink && !cliqueRegistrado.current) {
+      cliqueRegistrado.current = true
+      registrarAcesso(emailDoLink, 'link_click')
+    }
+  }, [searchParams])
 
   async function handleSubmit(e) {
     e.preventDefault()
     if (enviando) return
     setEnviando(true)
 
-    registrarAcesso(email)
+    registrarAcesso(email, 'form_submit')
 
     await new Promise((r) => setTimeout(r, 1000))
     navigate('/aviso')

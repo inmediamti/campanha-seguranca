@@ -29,28 +29,34 @@ Veja `.env.example`. Todas são opcionais em desenvolvimento:
 
 | Variável | Para quê |
 | --- | --- |
-| `VITE_CLICK_ENDPOINT` | URL que recebe o POST ao confirmar o form. Sem ela, o POST é ignorado. |
-| `VITE_CAMPAIGN_ID` | Identificador da campanha enviado no body. |
+| `VITE_CLICK_ENDPOINT` | URL que recebe o POST. Sem ela, o POST é ignorado. Homologação: `https://hapi.inmediam.com.br/api/inmediam/phishing/click`. |
+| `VITE_CAMPAIGN_ID` | Identificador da campanha enviado em `campaign_id`. |
 | `VITE_SYSTEM_URL` | Destino do botão final da cartilha. |
 | `VITE_REPORT_URL` | Canal para reportar mensagens suspeitas (ex.: `mailto:ti@inmediam.com.br`). |
 
 ## Contrato da API
 
-Ao confirmar o form, é feito `POST` em `VITE_CLICK_ENDPOINT` com:
+Rota (PR `InMediam/inmediam_api#4908`): `POST /api/inmediam/phishing/click`, pública, throttle 20 req/min por IP.
+Parâmetros em **query string**:
 
-```json
-{
-  "campaign_id": "2024-q4-email-ti",
-  "employee_email": "<valor do campo e-mail>"
-}
-```
+- `campaign_id` — obrigatório.
+- `email` — obrigatório, e-mail do colaborador.
+- `action` — `link_click` (na abertura da página, e-mail vindo do link) ou `form_submit` (ao enviar o form; default).
 
-- A senha digitada **nunca** sai do navegador — não é enviada ao backend.
-- `Content-Type: application/json`, `mode: 'cors'`.
+O front dispara:
+
+- `link_click` no carregamento de `/`, quando há `?email=` na URL (vinda do link do e-mail).
+- `form_submit` ao confirmar o form.
+
+Detalhes:
+
+- A senha digitada **nunca** sai do navegador — não é enviada ao backend (o backend tampouco a armazena).
+- IP e User-Agent são capturados pelo backend; `mode: 'cors'`, requisição simples (sem header custom, evita preflight).
 - Erros de rede são ignorados silenciosamente; o colaborador nunca vê mensagem de erro.
-- Independente da resposta, o fluxo redireciona para `/aviso`.
+- Independente da resposta, o form redireciona para `/aviso`. Resposta esperada: `{ "success": true }`.
+- Leitura dos resultados é direto no banco (`phishing_clicks`), sem rota GET.
 
-O backend precisa liberar CORS para a origem onde o front estiver hospedado.
+O backend precisa liberar **CORS** para a origem do front (pendência registrada no PR: path `api/inmediam/phishing/*` + origin do app em `config/cors.php`).
 
 ## Deploy na Vercel
 
